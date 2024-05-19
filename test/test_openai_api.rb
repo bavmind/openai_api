@@ -31,17 +31,17 @@ class LanguageModel
       }
     )
 
-    gpt4turbo = LanguageModel.new(
-      name: "GPT-4-Turbo",
+    gpt4o = LanguageModel.new(
+      name: "GPT-4o",
       kind: "completion",
       provider: "openai",
       configuration: {
         "api_key" => ENV.fetch("OPENAI_API_KEY"),
-        "model" => "gpt-4-turbo"
+        "model" => "gpt-4o"
       }
     )
 
-    [ada2, gpt4turbo]
+    [ada2, gpt4o]
   end
 end
 
@@ -92,8 +92,7 @@ class TestOpenAIAPI < Minitest::Test
           "role" => "system",
           "content" => "Tell me a joke"
         }
-      ],
-      "model": "gpt-4o"
+      ]
     }
 
     VCR.use_cassette("test_chat") do
@@ -117,8 +116,7 @@ class TestOpenAIAPI < Minitest::Test
           "role" => "user",
           "content" => "FUCK SHIT PISS."
         }
-      ],
-      "model": "gpt-4o"
+      ]
     }
 
     VCR.use_cassette("test_chat_content_filter") do
@@ -133,8 +131,7 @@ class TestOpenAIAPI < Minitest::Test
     first_embedding_model = LanguageModel.all.find { |model| model.kind == "embedding" }
     client = OpenAIAPI::Embedding.new(first_embedding_model)
     parameters = {
-      "input" => "Once upon a time",
-      "model": "text-embedding-ada-002",
+      "input" => "Once upon a time"
     }
 
     VCR.use_cassette("test_embedding") do

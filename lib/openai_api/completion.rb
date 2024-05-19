@@ -11,12 +11,14 @@ module OpenAIAPI
     def initialize(model, stream: nil, raw: false)
       @name = model.name
       @api_key = model.configuration["api_key"]
+      @model_identifier = model.configuration["model"]
       @api_url = "https://api.openai.com/v1/chat/completions"
       @stream = stream
       @raw = raw
     end
 
     def chat(parameters)
+      parameters[:model] = @model_identifier
       # Rails.logger.info("Chatting with \"#{@name}\" model with URL: #{@api_url}.")
       if @stream.nil?
         single_request_chat(parameters)

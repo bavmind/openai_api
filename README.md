@@ -28,13 +28,13 @@ class LanguageModel
   end
 
   def self.all
-    gpt_4_turbo = LanguageModel.new(
-      name: "GPT-4 Turbo",
+    gpt_4o = LanguageModel.new(
+      name: "GPT-4o",
       kind: "completion",
       provider: "openai",
       configuration: {
         "api_key" => "your_key",
-        "model" => "gpt-4-turbo"
+        "model" => "gpt-4o"
       }
     )
 
@@ -48,7 +48,7 @@ class LanguageModel
       }
     )
 
-    [gpt_4_turbo, ada2]
+    [gpt_4o, ada2]
   end
 end
 

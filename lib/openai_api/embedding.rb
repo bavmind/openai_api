@@ -8,10 +8,12 @@ module OpenAIAPI
     def initialize(model)
       @name = model.name
       @api_key = model.configuration["api_key"]
+      @model_identifier = model.configuration["model"]
       @api_url = "https://api.openai.com/v1/embeddings"
     end
 
     def embed(parameters)
+      parameters[:model] = @model_identifier
       # Rails.logger.info("Embedding with \"#{@name}\" model with URL: #{@api_url}.")
       response = connection.post do |request|
         request.params = params
